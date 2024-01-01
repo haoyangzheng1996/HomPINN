@@ -1,6 +1,10 @@
 # Getting Started
 ## Prerequisites
-Please read: requirement.txt
+Please read "requirement.txt" or run:
+
+```
+conda env create -f environment.yml
+```
 
 ## Usage
 Please run:
