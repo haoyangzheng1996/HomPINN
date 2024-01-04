@@ -1,6 +1,6 @@
 # Getting Started
 ## Prerequisites
-Please read "requirement.txt" or run:
+Please refer to "requirement.txt" 
 
 ## Usage
 Please run:
