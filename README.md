@@ -1,4 +1,3 @@
-# Getting Started
 ## Prerequisites
 Please refer to "requirement.txt" 
 
