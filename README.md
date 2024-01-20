@@ -16,6 +16,6 @@ More will be updated soon.
 ## Contact
 Haoyang Zheng, School of Mechanical Engineering, Purdue University
 
-Email: zheng528@purdue.edu
+Email: zheng+528 at purdue dot edu
 
 More Aboue Me: [link](https://haoyangzheng.github.io/)
