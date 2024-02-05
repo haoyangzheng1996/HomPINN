@@ -32,6 +32,7 @@ python3 main_HomPINN.py
 ```
 
 Results:
+
 ![pred1](https://github.com/haoyangzheng1996/HomPINN/assets/38525155/f6738bc6-3bac-45cc-9864-5fd8fb2e2b5d)
 
 
@@ -52,6 +53,7 @@ python3 main_HomPINN.py --data_dir ./data/obs_ex2.mat --n_epoch 20000 --max_epoc
 ```
 
 Results:
+
 ![pred2](https://github.com/haoyangzheng1996/HomPINN/assets/38525155/6c15a7df-884d-4854-9984-2931b50e3bfa)
 
 
