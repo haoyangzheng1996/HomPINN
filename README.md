@@ -17,12 +17,7 @@ Experiment code for "[HomPINNs](https://www.sciencedirect.com/science/article/pi
 Please refer to "requirement.txt" 
 
 ## The first example
-$$
-  \left\{\begin{aligned}
-    &\frac{\partial ^2 u(x)}{\partial x^2}=-\lambda\left(1+ u^4\right),\ \ x\in (0,1)\\
-    &{\left.\frac{\partial u(x)}{\partial x}\right |_{x=0}=\left.u(x)\right |_{x=1}=0}.
-  \end{aligned}\right.
-$$
+$$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)$$
 Please run:
 ```
 python3 main_HomPINN.py
