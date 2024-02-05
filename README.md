@@ -32,7 +32,8 @@ python3 main_HomPINN.py
 ```
 
 Results:
-[pred1.pdf](https://github.com/haoyangzheng1996/HomPINN/files/14172901/pred1.pdf)
+![pred1](https://github.com/haoyangzheng1996/HomPINN/assets/38525155/3dd0b5dd-44e9-4ecb-8ae2-5996550b80df)
+
 
 ## The second example
 
@@ -51,8 +52,7 @@ python3 main_HomPINN.py --data_dir ./data/obs_ex2.mat --n_epoch 20000 --max_epoc
 ```
 
 Results:
-[pred2.pdf](https://github.com/haoyangzheng1996/HomPINN/files/14172911/pred2.pdf)
-
+![pred2](https://github.com/haoyangzheng1996/HomPINN/assets/38525155/234f45b2-9640-4dff-b9c5-25fcbccdc240)
 
 ## Contact
 Haoyang Zheng, School of Mechanical Engineering, Purdue University
