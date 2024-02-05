@@ -19,17 +19,40 @@ Please refer to "requirement.txt"
 ## The first example
 
 ```math
-\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)
+  \left\{\begin{aligned}
+    &\frac{\partial ^2 u(x)}{\partial x^2}=-\lambda\left(1+ u^4\right),\ \ x\in (0,1)\\
+    &{\left.\frac{\partial u(x)}{\partial x}\right |_{x=0}=\left.u(x)\right |_{x=1}=0}.
+  \end{aligned}\right.
 ```
+with $\lambda=1.20$
 
 Please run:
 ```
 python3 main_HomPINN.py
 ```
 
+Results:
+[pred1.pdf](https://github.com/haoyangzheng1996/HomPINN/files/14172901/pred1.pdf)
 
+## The second example
 
-More will be updated soon.
+```math
+  \left\{
+  \begin{aligned}
+     &\frac{\partial ^2 u(x)}{\partial x^2} =u^4-\lambda u^2,\ \ x\in (0\ ,1),\\
+     &\left.\frac{\partial u(x)}{\partial x}\right |_{x=0}=\left.u(x)\right |_{x=1}=0.
+  \end{aligned}\right.
+```
+with $\lambda=18.00$
+
+Please run:
+```
+python3 main_HomPINN.py --data_dir ./data/obs_ex2.mat --n_epoch 20000 --max_epoch 40000 --num_sol 3 --num_obs 100 --lr_low 1e-4 --lr_gap 0.98
+```
+
+Results:
+[pred2.pdf](https://github.com/haoyangzheng1996/HomPINN/files/14172911/pred2.pdf)
+
 
 ## Contact
 Haoyang Zheng, School of Mechanical Engineering, Purdue University
