@@ -17,7 +17,11 @@ Experiment code for "[HomPINNs](https://www.sciencedirect.com/science/article/pi
 Please refer to "requirement.txt" 
 
 ## The first example
-$$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)$$
+
+```math
+\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)
+```
+
 Please run:
 ```
 python3 main_HomPINN.py
