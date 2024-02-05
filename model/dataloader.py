@@ -6,8 +6,9 @@ import scipy.io
 
 
 class loader:
-    def __init__(self, data_dir, N_each_sols=40, N_collocation=100):
+    def __init__(self, data_dir, N_sols=2, N_each_sols=40, N_collocation=100):
 
+        self.n_sols = N_sols
         self.data_dir = data_dir
         self.n_col = N_collocation
         self.n_each_sol = N_each_sols
@@ -18,8 +19,9 @@ class loader:
 
         x_collocation = (np.arange(self.n_col) / (self.n_col - 1)).reshape((-1, 1))
         xg_collocation = torch.Tensor(x_collocation)
-        idx_class = np.array([1, 2])
         data_obs = scipy.io.loadmat(self.data_dir)['data']
+        num_sols_tol = data_obs.shape[1] - 1
+        idx_class = np.random.choice(np.arange(num_sols_tol) + 1, size=self.n_sols, replace=False)
         U_obs, x_obs = generate_obs(data_obs, idx_class, self.n_each_sol)
         U_obst = torch.Tensor(U_obs.reshape((-1, 1)))
         x_obst = torch.Tensor(x_obs.reshape((-1, 1)))

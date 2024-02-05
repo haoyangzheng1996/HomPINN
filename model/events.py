@@ -8,7 +8,7 @@ from model.utils import generate_learning_rates, detach_data
 
 
 class Event:
-    def __init__(self, model, optimizer, loader, max_epochs, lr_tol=20000, learn_rate=None,
+    def __init__(self, model, optimizer, loader, max_epochs, lr_tol=20000, learn_rate=None, lr_gap=None,
                  save_path=None, fig_path=None, device=None):
 
         self.model = model
@@ -17,6 +17,11 @@ class Event:
 
         self.epoch = max_epochs
         self.lr_tol = lr_tol
+
+        if lr_gap is not None:
+            self.lr_gap = lr_gap
+        else:
+            self.lr_gap = 0.90
 
         if device is not None:
             self.device = device
@@ -35,9 +40,11 @@ class Event:
     def train_each_step(self, alpha, hom_step):
 
         if self.epoch <= self.lr_tol:
-            lrseq = generate_learning_rates(self.learn_rate[0], self.learn_rate[1], self.epoch) * 0.9 ** hom_step
+            lrseq = generate_learning_rates(
+                self.learn_rate[0], self.learn_rate[1], self.epoch) * self.lr_gap ** hom_step
         else:
-            lrseq = generate_learning_rates(self.learn_rate[0], self.learn_rate[2], self.epoch) * 0.9 ** hom_step
+            lrseq = generate_learning_rates(
+                self.learn_rate[0], 1e-5, self.epoch) * self.lr_gap ** hom_step
 
         num_epoch = trange(self.epoch, desc="HomPINN Training")
 
@@ -92,10 +99,13 @@ class Event:
 
         plt.figure(figsize=(7, 6), dpi=150)
 
+        # import os
+        # os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
         plt.scatter(detach_data(self.loader.x_obs), detach_data(self.loader.u_obs),
                     marker='o', s=100, linewidths=3, c='none', edgecolors='k', label='obs')
-        plt.plot(x, self.loader.data_all[:, 1], color='blue', linewidth=4, label='u_1')
-        plt.plot(x, self.loader.data_all[:, 2], color='red', linewidth=4, label='u_2')
+
+        for i in range(self.loader.data_all.shape[1]-1):
+            plt.plot(x, self.loader.data_all[:, i+1], linewidth=4, label='u_' + str(int(i+1)))
 
         plt.xlabel('x', fontsize=20)
         plt.ylabel('u(x)', fontsize=20)
@@ -130,8 +140,8 @@ class Event:
 
         plt.scatter(detach_data(self.loader.x_obs), detach_data(self.loader.u_obs),
                     marker='o', s=100, linewidths=3, c='none', edgecolors='k', label='obs')
-        plt.plot(detach_data(x), detach_data(u[:, 0]), color='blue', linewidth=4, label='u_1')
-        plt.plot(detach_data(x), detach_data(u[:, 1]), color='red', linewidth=4, label='u_2')
+        for i in range(u.shape[1]):
+            plt.plot(detach_data(x), detach_data(u[:, i]), linewidth=4, label='u_'+str(i+1))
 
         plt.xlabel('x', fontsize=20)
         plt.ylabel('u(x)', fontsize=20)
