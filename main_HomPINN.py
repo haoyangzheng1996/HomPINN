@@ -6,7 +6,7 @@ from model.utils import select_optimizer, load_model
 from model.dataloader import loader
 from model.flags import get_flags
 from model.events import Event
-from model.msnn import MSNN
+from model.msnn import MSNN, MSNN2
 
 
 def run_func(args):
@@ -19,24 +19,29 @@ def run_func(args):
     Hom_step = args.n_step
 
     # Data generation
-    dataloader = loader(data_dir=args.data_dir, N_each_sols=args.num_obs, N_collocation=args.num_col)
+    dataloader = loader(
+        data_dir=args.data_dir,
+        N_sols=args.num_sol, N_each_sols=args.num_obs, N_collocation=args.num_col)
 
     # Network
     Layers = [args.num_input]
     for i in range(args.depth - 2):
         Layers.append(args.width)
     Layers.append(args.num_sol)
-    
-    u_net = MSNN(Layers).to(device)
+
+    if args.data_dir == './data/obs.mat':
+        u_net = MSNN(Layers).to(device)
+    else:
+        u_net = MSNN2(Layers).to(device)
     u_net = load_model(u_net, args.model_dir, device)  # load previous model
     
     # Optimizer
     optimizer = select_optimizer(u_net, optim=args.optimizer)
     
     # Configure event
-    lr = [args.learning_rate, args.lr_low1, args.lr_low2]
+    lr = [args.lr_high, args.lr_low]
     event = Event(u_net, optimizer, dataloader, max_epochs=args.n_epoch, device=device, learn_rate=lr,
-                  save_path=args.model_dir, fig_path=args.fig_dir)
+                  lr_gap=args.lr_gap, save_path=args.model_dir, fig_path=args.fig_dir)
 
     # Plot observations
     event.plot_data()
@@ -46,7 +51,7 @@ def run_func(args):
         alpha = alpha_0 * r ** step
         print('Step: {}; alpha: {:.4f}'.format(step + 1, alpha))
         if step == Hom_step-1:
-            event.epoch = int(20000)
+            event.epoch = int(args.max_epoch)
         event.train_each_step(alpha, step)
         event.save_model()
 
